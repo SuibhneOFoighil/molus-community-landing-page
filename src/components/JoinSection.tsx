@@ -109,16 +109,9 @@ const JoinSection: React.FC = () => {
                         />
                       </div>
                       <div className="mb-6">
-                        <label className="flex items-start">
-                          <input 
-                            type="checkbox" 
-                            className="mt-1 mr-2"
-                            required
-                          />
-                          <span className="font-['Helvetica_Neue'] font-light text-sm text-gray-700 dark:text-gray-300">
-                            I agree to receive updates about the community and upcoming events. You can unsubscribe at any time.
-                          </span>
-                        </label>
+                        <p className="font-['Helvetica_Neue'] font-light text-sm text-gray-700 dark:text-gray-300">
+                          By joining, you'll receive updates about our community and upcoming events. You can unsubscribe at any time.
+                        </p>
                       </div>
                       <button 
                         type="submit"

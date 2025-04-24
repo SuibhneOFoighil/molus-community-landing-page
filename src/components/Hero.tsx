@@ -56,7 +56,7 @@ const Hero: React.FC = () => {
                 <div className="absolute -top-3 -right-3 bg-[#ED3E4B] text-white px-4 py-1 rounded-full text-sm font-['Helvetica_Neue'] font-medium border-2 border-black z-10">
                   Limited Spots
                 </div>
-                <div className="bg-[#E2D210]/90 backdrop-blur-sm rounded-[10px] p-8 border-2 border-black dark:border-white">
+                <div className="bg-[#E2D210]/90 dark:bg-[#E2D210]/80 backdrop-blur-sm rounded-[10px] p-8 border-2 border-black dark:border-white">
                   <h3 className="font-['Helvetica_Neue'] font-medium text-2xl mb-6 text-black">Next Ship It Schedule</h3>
                   <div className="space-y-4">
                     <div className="bg-white/90 backdrop-blur-sm rounded-[10px] p-4 border-2 border-black">

@@ -28,7 +28,7 @@ The content is organized as follows:
 ## Notes
 - Some files may have been excluded based on .gitignore rules and Repomix's configuration
 - Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
-- Only files matching these patterns are included: src, .gitignore, bun.lock, CLAUDE.md, eslint.config.js, index.html, package.json, postcss.config.js, tailwind.config.js, tsconfig.app.json, tsconfig.json, tsconfig.node.json, vite.config.ts
+- Only files matching these patterns are included: .repomix, convex, node_modules, src, .env.local, .gitignore, bun.lock, CLAUDE.md, eslint.config.js, index.html, package.json, postcss.config.js, tailwind.config.js, tsconfig.app.json, tsconfig.json, tsconfig.node.json, vite.config.ts
 - Files matching patterns in .gitignore are excluded
 - Files matching default ignore patterns are excluded
 - Files are sorted by Git change count (files with more changes are at the bottom)
@@ -37,6 +37,17 @@ The content is organized as follows:
 
 # Directory Structure
 ```
+.repomix/
+  bundles.json
+convex/
+  _generated/
+    api.d.ts
+    api.js
+    dataModel.d.ts
+    server.d.ts
+    server.js
+  schema.ts
+  signups.ts
 src/
   components/
     About.tsx
@@ -72,8 +83,421 @@ vite.config.ts
 
 # Files
 
+## File: .repomix/bundles.json
+````json
+{
+  "bundles": {}
+}
+````
+
+## File: convex/_generated/api.d.ts
+````typescript
+/* eslint-disable */
+/**
+ * Generated `api` utility.
+ *
+ * THIS CODE IS AUTOMATICALLY GENERATED.
+ *
+ * To regenerate, run `npx convex dev`.
+ * @module
+ */
+
+import type {
+  ApiFromModules,
+  FilterApi,
+  FunctionReference,
+} from "convex/server";
+import type * as signups from "../signups.js";
+
+/**
+ * A utility for referencing Convex functions in your app's API.
+ *
+ * Usage:
+ * ```js
+ * const myFunctionReference = api.myModule.myFunction;
+ * ```
+ */
+declare const fullApi: ApiFromModules<{
+  signups: typeof signups;
+}>;
+export declare const api: FilterApi<
+  typeof fullApi,
+  FunctionReference<any, "public">
+>;
+export declare const internal: FilterApi<
+  typeof fullApi,
+  FunctionReference<any, "internal">
+>;
+````
+
+## File: convex/_generated/api.js
+````javascript
+/* eslint-disable */
+/**
+ * Generated `api` utility.
+ *
+ * THIS CODE IS AUTOMATICALLY GENERATED.
+ *
+ * To regenerate, run `npx convex dev`.
+ * @module
+ */
+
+import { anyApi } from "convex/server";
+
+/**
+ * A utility for referencing Convex functions in your app's API.
+ *
+ * Usage:
+ * ```js
+ * const myFunctionReference = api.myModule.myFunction;
+ * ```
+ */
+export const api = anyApi;
+export const internal = anyApi;
+````
+
+## File: convex/_generated/dataModel.d.ts
+````typescript
+/* eslint-disable */
+/**
+ * Generated data model types.
+ *
+ * THIS CODE IS AUTOMATICALLY GENERATED.
+ *
+ * To regenerate, run `npx convex dev`.
+ * @module
+ */
+
+import type {
+  DataModelFromSchemaDefinition,
+  DocumentByName,
+  TableNamesInDataModel,
+  SystemTableNames,
+} from "convex/server";
+import type { GenericId } from "convex/values";
+import schema from "../schema.js";
+
+/**
+ * The names of all of your Convex tables.
+ */
+export type TableNames = TableNamesInDataModel<DataModel>;
+
+/**
+ * The type of a document stored in Convex.
+ *
+ * @typeParam TableName - A string literal type of the table name (like "users").
+ */
+export type Doc<TableName extends TableNames> = DocumentByName<
+  DataModel,
+  TableName
+>;
+
+/**
+ * An identifier for a document in Convex.
+ *
+ * Convex documents are uniquely identified by their `Id`, which is accessible
+ * on the `_id` field. To learn more, see [Document IDs](https://docs.convex.dev/using/document-ids).
+ *
+ * Documents can be loaded using `db.get(id)` in query and mutation functions.
+ *
+ * IDs are just strings at runtime, but this type can be used to distinguish them from other
+ * strings when type checking.
+ *
+ * @typeParam TableName - A string literal type of the table name (like "users").
+ */
+export type Id<TableName extends TableNames | SystemTableNames> =
+  GenericId<TableName>;
+
+/**
+ * A type describing your Convex data model.
+ *
+ * This type includes information about what tables you have, the type of
+ * documents stored in those tables, and the indexes defined on them.
+ *
+ * This type is used to parameterize methods like `queryGeneric` and
+ * `mutationGeneric` to make them type-safe.
+ */
+export type DataModel = DataModelFromSchemaDefinition<typeof schema>;
+````
+
+## File: convex/_generated/server.d.ts
+````typescript
+/* eslint-disable */
+/**
+ * Generated utilities for implementing server-side Convex query and mutation functions.
+ *
+ * THIS CODE IS AUTOMATICALLY GENERATED.
+ *
+ * To regenerate, run `npx convex dev`.
+ * @module
+ */
+
+import {
+  ActionBuilder,
+  HttpActionBuilder,
+  MutationBuilder,
+  QueryBuilder,
+  GenericActionCtx,
+  GenericMutationCtx,
+  GenericQueryCtx,
+  GenericDatabaseReader,
+  GenericDatabaseWriter,
+} from "convex/server";
+import type { DataModel } from "./dataModel.js";
+
+/**
+ * Define a query in this Convex app's public API.
+ *
+ * This function will be allowed to read your Convex database and will be accessible from the client.
+ *
+ * @param func - The query function. It receives a {@link QueryCtx} as its first argument.
+ * @returns The wrapped query. Include this as an `export` to name it and make it accessible.
+ */
+export declare const query: QueryBuilder<DataModel, "public">;
+
+/**
+ * Define a query that is only accessible from other Convex functions (but not from the client).
+ *
+ * This function will be allowed to read from your Convex database. It will not be accessible from the client.
+ *
+ * @param func - The query function. It receives a {@link QueryCtx} as its first argument.
+ * @returns The wrapped query. Include this as an `export` to name it and make it accessible.
+ */
+export declare const internalQuery: QueryBuilder<DataModel, "internal">;
+
+/**
+ * Define a mutation in this Convex app's public API.
+ *
+ * This function will be allowed to modify your Convex database and will be accessible from the client.
+ *
+ * @param func - The mutation function. It receives a {@link MutationCtx} as its first argument.
+ * @returns The wrapped mutation. Include this as an `export` to name it and make it accessible.
+ */
+export declare const mutation: MutationBuilder<DataModel, "public">;
+
+/**
+ * Define a mutation that is only accessible from other Convex functions (but not from the client).
+ *
+ * This function will be allowed to modify your Convex database. It will not be accessible from the client.
+ *
+ * @param func - The mutation function. It receives a {@link MutationCtx} as its first argument.
+ * @returns The wrapped mutation. Include this as an `export` to name it and make it accessible.
+ */
+export declare const internalMutation: MutationBuilder<DataModel, "internal">;
+
+/**
+ * Define an action in this Convex app's public API.
+ *
+ * An action is a function which can execute any JavaScript code, including non-deterministic
+ * code and code with side-effects, like calling third-party services.
+ * They can be run in Convex's JavaScript environment or in Node.js using the "use node" directive.
+ * They can interact with the database indirectly by calling queries and mutations using the {@link ActionCtx}.
+ *
+ * @param func - The action. It receives an {@link ActionCtx} as its first argument.
+ * @returns The wrapped action. Include this as an `export` to name it and make it accessible.
+ */
+export declare const action: ActionBuilder<DataModel, "public">;
+
+/**
+ * Define an action that is only accessible from other Convex functions (but not from the client).
+ *
+ * @param func - The function. It receives an {@link ActionCtx} as its first argument.
+ * @returns The wrapped function. Include this as an `export` to name it and make it accessible.
+ */
+export declare const internalAction: ActionBuilder<DataModel, "internal">;
+
+/**
+ * Define an HTTP action.
+ *
+ * This function will be used to respond to HTTP requests received by a Convex
+ * deployment if the requests matches the path and method where this action
+ * is routed. Be sure to route your action in `convex/http.js`.
+ *
+ * @param func - The function. It receives an {@link ActionCtx} as its first argument.
+ * @returns The wrapped function. Import this function from `convex/http.js` and route it to hook it up.
+ */
+export declare const httpAction: HttpActionBuilder;
+
+/**
+ * A set of services for use within Convex query functions.
+ *
+ * The query context is passed as the first argument to any Convex query
+ * function run on the server.
+ *
+ * This differs from the {@link MutationCtx} because all of the services are
+ * read-only.
+ */
+export type QueryCtx = GenericQueryCtx<DataModel>;
+
+/**
+ * A set of services for use within Convex mutation functions.
+ *
+ * The mutation context is passed as the first argument to any Convex mutation
+ * function run on the server.
+ */
+export type MutationCtx = GenericMutationCtx<DataModel>;
+
+/**
+ * A set of services for use within Convex action functions.
+ *
+ * The action context is passed as the first argument to any Convex action
+ * function run on the server.
+ */
+export type ActionCtx = GenericActionCtx<DataModel>;
+
+/**
+ * An interface to read from the database within Convex query functions.
+ *
+ * The two entry points are {@link DatabaseReader.get}, which fetches a single
+ * document by its {@link Id}, or {@link DatabaseReader.query}, which starts
+ * building a query.
+ */
+export type DatabaseReader = GenericDatabaseReader<DataModel>;
+
+/**
+ * An interface to read from and write to the database within Convex mutation
+ * functions.
+ *
+ * Convex guarantees that all writes within a single mutation are
+ * executed atomically, so you never have to worry about partial writes leaving
+ * your data in an inconsistent state. See [the Convex Guide](https://docs.convex.dev/understanding/convex-fundamentals/functions#atomicity-and-optimistic-concurrency-control)
+ * for the guarantees Convex provides your functions.
+ */
+export type DatabaseWriter = GenericDatabaseWriter<DataModel>;
+````
+
+## File: convex/_generated/server.js
+````javascript
+/* eslint-disable */
+/**
+ * Generated utilities for implementing server-side Convex query and mutation functions.
+ *
+ * THIS CODE IS AUTOMATICALLY GENERATED.
+ *
+ * To regenerate, run `npx convex dev`.
+ * @module
+ */
+
+import {
+  actionGeneric,
+  httpActionGeneric,
+  queryGeneric,
+  mutationGeneric,
+  internalActionGeneric,
+  internalMutationGeneric,
+  internalQueryGeneric,
+} from "convex/server";
+
+/**
+ * Define a query in this Convex app's public API.
+ *
+ * This function will be allowed to read your Convex database and will be accessible from the client.
+ *
+ * @param func - The query function. It receives a {@link QueryCtx} as its first argument.
+ * @returns The wrapped query. Include this as an `export` to name it and make it accessible.
+ */
+export const query = queryGeneric;
+
+/**
+ * Define a query that is only accessible from other Convex functions (but not from the client).
+ *
+ * This function will be allowed to read from your Convex database. It will not be accessible from the client.
+ *
+ * @param func - The query function. It receives a {@link QueryCtx} as its first argument.
+ * @returns The wrapped query. Include this as an `export` to name it and make it accessible.
+ */
+export const internalQuery = internalQueryGeneric;
+
+/**
+ * Define a mutation in this Convex app's public API.
+ *
+ * This function will be allowed to modify your Convex database and will be accessible from the client.
+ *
+ * @param func - The mutation function. It receives a {@link MutationCtx} as its first argument.
+ * @returns The wrapped mutation. Include this as an `export` to name it and make it accessible.
+ */
+export const mutation = mutationGeneric;
+
+/**
+ * Define a mutation that is only accessible from other Convex functions (but not from the client).
+ *
+ * This function will be allowed to modify your Convex database. It will not be accessible from the client.
+ *
+ * @param func - The mutation function. It receives a {@link MutationCtx} as its first argument.
+ * @returns The wrapped mutation. Include this as an `export` to name it and make it accessible.
+ */
+export const internalMutation = internalMutationGeneric;
+
+/**
+ * Define an action in this Convex app's public API.
+ *
+ * An action is a function which can execute any JavaScript code, including non-deterministic
+ * code and code with side-effects, like calling third-party services.
+ * They can be run in Convex's JavaScript environment or in Node.js using the "use node" directive.
+ * They can interact with the database indirectly by calling queries and mutations using the {@link ActionCtx}.
+ *
+ * @param func - The action. It receives an {@link ActionCtx} as its first argument.
+ * @returns The wrapped action. Include this as an `export` to name it and make it accessible.
+ */
+export const action = actionGeneric;
+
+/**
+ * Define an action that is only accessible from other Convex functions (but not from the client).
+ *
+ * @param func - The function. It receives an {@link ActionCtx} as its first argument.
+ * @returns The wrapped function. Include this as an `export` to name it and make it accessible.
+ */
+export const internalAction = internalActionGeneric;
+
+/**
+ * Define a Convex HTTP action.
+ *
+ * @param func - The function. It receives an {@link ActionCtx} as its first argument, and a `Request` object
+ * as its second.
+ * @returns The wrapped endpoint function. Route a URL path to this function in `convex/http.js`.
+ */
+export const httpAction = httpActionGeneric;
+````
+
+## File: convex/schema.ts
+````typescript
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+export default defineSchema({
+  signups: defineTable({
+    name: v.string(),
+    email: v.string(),
+    createdAt: v.number(),   // Date.now()
+  }),
+});
+````
+
+## File: convex/signups.ts
+````typescript
+import { mutation, query } from "./_generated/server";
+import { v } from "convex/values";
+
+// store a new signup
+export const addSignup = mutation({
+  args: { name: v.string(), email: v.string() },
+  handler: async (ctx, { name, email }) => {
+    await ctx.db.insert("signups", { name, email, createdAt: Date.now() });
+  },
+});
+
+// list all signups, newest first
+export const listSignups = query({
+  args: {},
+  handler: async (ctx) => ctx.db
+    .query("signups")
+    .order("desc")          // newest → oldest
+    .collect(),
+});
+````
+
 ## File: src/components/About.tsx
-```typescript
+````typescript
 import React from 'react';
 import { Lightbulb, Users, Rocket } from 'lucide-react';
 import AnimatedElement from './AnimatedElement';
@@ -141,10 +565,10 @@ const features = [
 ];
 
 export default About;
-```
+````
 
 ## File: src/components/AnimatedElement.tsx
-```typescript
+````typescript
 import React, { useEffect, useState } from 'react';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
@@ -215,10 +639,10 @@ const AnimatedElement: React.FC<AnimatedElementProps> = ({
 };
 
 export default AnimatedElement;
-```
+````
 
 ## File: src/components/Community.tsx
-```typescript
+````typescript
 import React from 'react';
 import { MessageSquare, Calendar, Users } from 'lucide-react';
 import AnimatedElement from './AnimatedElement';
@@ -348,10 +772,10 @@ const testimonials = [
 ];
 
 export default Community;
-```
+````
 
 ## File: src/components/FAQ.tsx
-```typescript
+````typescript
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import AnimatedElement from './AnimatedElement';
@@ -459,10 +883,10 @@ const faqs = [
 ];
 
 export default FAQ;
-```
+````
 
 ## File: src/components/FloatingPaths.tsx
-```typescript
+````typescript
 import { motion } from "framer-motion";
 
 interface FloatingPathsProps {
@@ -515,10 +939,10 @@ export const FloatingPaths = ({ position, colors }: FloatingPathsProps) => {
     </div>
   );
 };
-```
+````
 
 ## File: src/components/Hero.tsx
-```typescript
+````typescript
 import React from 'react';
 import AnimatedElement from './AnimatedElement';
 import { FloatingPaths } from './FloatingPaths';
@@ -612,150 +1036,10 @@ const Hero: React.FC = () => {
 };
 
 export default Hero;
-```
-
-## File: src/components/JoinSection.tsx
-```typescript
-import React, { useState } from 'react';
-import AnimatedElement from './AnimatedElement';
-
-const JoinSection: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-  
-  return (
-    <section id="join" className="py-20 bg-[#E2D210] dark:bg-[#E2D210]/20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 mb-12 md:mb-0">
-            <AnimatedElement animation="slideLeft" delay={0.2}>
-              <h2 className="font-['Helvetica_Neue'] font-medium text-3xl md:text-4xl mb-4 text-black dark:text-white">
-                Join Our Community of Builders
-              </h2>
-              <p className="font-['Helvetica_Neue'] font-light text-lg mb-8 text-gray-800 dark:text-gray-200">
-                Connect with fellow creators, get access to our Discord, and be the first to know about upcoming Ship It schedules and masterminds.
-              </p>
-            </AnimatedElement>
-            
-            <AnimatedElement animation="slideLeft" delay={0.4}>
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-black dark:bg-white flex items-center justify-center text-white dark:text-black font-['Helvetica_Neue'] font-medium text-xl">
-                    1
-                  </div>
-                  <span className="ml-3 font-['Helvetica_Neue'] font-light text-gray-800 dark:text-gray-200">Join Our Discord</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-black dark:bg-white flex items-center justify-center text-white dark:text-black font-['Helvetica_Neue'] font-medium text-xl">
-                    2
-                  </div>
-                  <span className="ml-3 font-['Helvetica_Neue'] font-light text-gray-800 dark:text-gray-200">Attend a Meetup</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-black dark:bg-white flex items-center justify-center text-white dark:text-black font-['Helvetica_Neue'] font-medium text-xl">
-                    3
-                  </div>
-                  <span className="ml-3 font-['Helvetica_Neue'] font-light text-gray-800 dark:text-gray-200">Ship Your Project</span>
-                </div>
-              </div>
-            </AnimatedElement>
-          </div>
-          
-          <div className="md:w-1/2 md:pl-12">
-            <AnimatedElement animation="slideRight" delay={0.4}>
-              <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-black dark:border-white p-6 md:p-8">
-                {submitted ? (
-                  <div className="text-center py-8">
-                    <h3 className="font-['Helvetica_Neue'] font-medium text-2xl mb-4 text-black dark:text-white">Thank You!</h3>
-                    <p className="font-['Helvetica_Neue'] font-light mb-6 text-gray-700 dark:text-gray-300">
-                      We've received your information and will be in touch soon with next steps to join our community.
-                    </p>
-                    <button 
-                      onClick={() => setSubmitted(false)}
-                      className="inline-block px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-['Helvetica_Neue'] font-medium rounded-lg"
-                    >
-                      Sign Up Another
-                    </button>
-                  </div>
-                ) : (
-                  <>
-                    <h3 className="font-['Helvetica_Neue'] font-medium text-2xl mb-4 text-black dark:text-white">Get Started</h3>
-                    <form onSubmit={handleSubmit}>
-                      <div className="mb-4">
-                        <label 
-                          htmlFor="name" 
-                          className="block font-['Helvetica_Neue'] font-medium mb-2 text-black dark:text-white"
-                        >
-                          Your Name
-                        </label>
-                        <input 
-                          type="text" 
-                          id="name"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-black dark:focus:border-white focus:outline-none font-['Helvetica_Neue'] font-light bg-white dark:bg-gray-700 text-black dark:text-white"
-                          placeholder="Enter your name"
-                          required
-                        />
-                      </div>
-                      <div className="mb-4">
-                        <label 
-                          htmlFor="email" 
-                          className="block font-['Helvetica_Neue'] font-medium mb-2 text-black dark:text-white"
-                        >
-                          Email Address
-                        </label>
-                        <input 
-                          type="email" 
-                          id="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-black dark:focus:border-white focus:outline-none font-['Helvetica_Neue'] font-light bg-white dark:bg-gray-700 text-black dark:text-white"
-                          placeholder="Enter your email"
-                          required
-                        />
-                      </div>
-                      <div className="mb-6">
-                        <label className="flex items-start">
-                          <input 
-                            type="checkbox" 
-                            className="mt-1 mr-2"
-                            required
-                          />
-                          <span className="font-['Helvetica_Neue'] font-light text-sm text-gray-700 dark:text-gray-300">
-                            I agree to receive updates about the community and upcoming events. You can unsubscribe at any time.
-                          </span>
-                        </label>
-                      </div>
-                      <button 
-                        type="submit"
-                        className="w-full px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-['Helvetica_Neue'] font-medium rounded-lg hover:bg-black/90 dark:hover:bg-white/90 transition-colors"
-                      >
-                        Join The Community
-                      </button>
-                    </form>
-                  </>
-                )}
-              </div>
-            </AnimatedElement>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default JoinSection;
-```
+````
 
 ## File: src/components/Partners.tsx
-```typescript
+````typescript
 import React from 'react';
 import AnimatedElement from './AnimatedElement';
 
@@ -836,10 +1120,10 @@ const partners = [
 ];
 
 export default Partners;
-```
+````
 
 ## File: src/components/ShipIt.tsx
-```typescript
+````typescript
 import React from 'react';
 import { Clock, Zap, Presentation as PresentationChart, Database } from 'lucide-react';
 import AnimatedElement from './AnimatedElement';
@@ -949,10 +1233,10 @@ const benefits = [
 ];
 
 export default ShipIt;
-```
+````
 
 ## File: src/hooks/useDarkMode.tsx
-```typescript
+````typescript
 import { useState, useEffect } from 'react';
 
 export const useDarkMode = () => {
@@ -999,10 +1283,10 @@ export const useDarkMode = () => {
 
   return { isDark, toggle };
 };
-```
+````
 
 ## File: src/hooks/useIntersectionObserver.tsx
-```typescript
+````typescript
 import { useEffect, useRef, useState } from 'react';
 
 interface UseIntersectionObserverProps {
@@ -1048,11 +1332,11 @@ export const useIntersectionObserver = ({
 
   return { ref: elementRef, isVisible };
 };
-```
+````
 
 ## File: src/App.tsx
-```typescript
-import React, { useEffect } from 'react';
+````typescript
+import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -1078,9 +1362,10 @@ function App() {
     
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', (e) => {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href') || '');
+        const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href') || '';
+        const target = document.querySelector(href);
         if (target) {
           window.scrollTo({
             top: target.getBoundingClientRect().top + window.scrollY - 80,
@@ -1107,10 +1392,10 @@ function App() {
 }
 
 export default App
-```
+````
 
 ## File: src/index.css
-```css
+````css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -1298,29 +1583,15 @@ textarea {
   background-color: #000000;
   color: #ffffff;
 }
-```
-
-## File: src/main.tsx
-```typescript
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
-import './index.css';
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
-```
+````
 
 ## File: src/vite-env.d.ts
-```typescript
+````typescript
 /// <reference types="vite/client" />
-```
+````
 
 ## File: eslint.config.js
-```javascript
+````javascript
 import js from '@eslint/js';
 import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -1349,10 +1620,10 @@ export default tseslint.config(
     },
   }
 );
-```
+````
 
 ## File: index.html
-```html
+````html
 <!doctype html>
 <html lang="en">
   <head>
@@ -1371,20 +1642,20 @@ export default tseslint.config(
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-```
+````
 
 ## File: postcss.config.js
-```javascript
+````javascript
 export default {
   plugins: {
     tailwindcss: {},
     autoprefixer: {},
   },
 };
-```
+````
 
 ## File: tailwind.config.js
-```javascript
+````javascript
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -1416,10 +1687,10 @@ export default {
   },
   plugins: [],
 };
-```
+````
 
 ## File: tsconfig.app.json
-```json
+````json
 {
   "compilerOptions": {
     "target": "ES2020",
@@ -1444,10 +1715,10 @@ export default {
   },
   "include": ["src"]
 }
-```
+````
 
 ## File: tsconfig.json
-```json
+````json
 {
   "files": [],
   "references": [
@@ -1455,10 +1726,10 @@ export default {
     { "path": "./tsconfig.node.json" }
   ]
 }
-```
+````
 
 ## File: tsconfig.node.json
-```json
+````json
 {
   "compilerOptions": {
     "target": "ES2022",
@@ -1481,10 +1752,155 @@ export default {
   },
   "include": ["vite.config.ts"]
 }
-```
+````
+
+## File: src/components/JoinSection.tsx
+````typescript
+import React, { useState } from 'react';
+import AnimatedElement from './AnimatedElement';
+import { useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api";
+
+const JoinSection: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  
+  const addSignup = useMutation(api.signups.addSignup);
+  
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await addSignup({ name, email });
+    setSubmitted(true);
+  };
+  
+  return (
+    <section id="join" className="py-20 bg-[#E2D210] dark:bg-[#E2D210]/20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row items-center">
+          <div className="md:w-1/2 mb-12 md:mb-0">
+            <AnimatedElement animation="slideLeft" delay={0.2}>
+              <h2 className="font-['Helvetica_Neue'] font-medium text-3xl md:text-4xl mb-4 text-black dark:text-white">
+                Join Our Community of Builders
+              </h2>
+              <p className="font-['Helvetica_Neue'] font-light text-lg mb-8 text-gray-800 dark:text-gray-200">
+                Connect with fellow creators, get access to our Discord, and be the first to know about upcoming Ship It schedules and masterminds.
+              </p>
+            </AnimatedElement>
+            
+            <AnimatedElement animation="slideLeft" delay={0.4}>
+              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-black dark:bg-white flex items-center justify-center text-white dark:text-black font-['Helvetica_Neue'] font-medium text-xl">
+                    1
+                  </div>
+                  <span className="ml-3 font-['Helvetica_Neue'] font-light text-gray-800 dark:text-gray-200">Join Our Discord</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-black dark:bg-white flex items-center justify-center text-white dark:text-black font-['Helvetica_Neue'] font-medium text-xl">
+                    2
+                  </div>
+                  <span className="ml-3 font-['Helvetica_Neue'] font-light text-gray-800 dark:text-gray-200">Attend a Meetup</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-black dark:bg-white flex items-center justify-center text-white dark:text-black font-['Helvetica_Neue'] font-medium text-xl">
+                    3
+                  </div>
+                  <span className="ml-3 font-['Helvetica_Neue'] font-light text-gray-800 dark:text-gray-200">Ship Your Project</span>
+                </div>
+              </div>
+            </AnimatedElement>
+          </div>
+          
+          <div className="md:w-1/2 md:pl-12">
+            <AnimatedElement animation="slideRight" delay={0.4}>
+              <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-black dark:border-white p-6 md:p-8">
+                {submitted ? (
+                  <div className="text-center py-8">
+                    <h3 className="font-['Helvetica_Neue'] font-medium text-2xl mb-4 text-black dark:text-white">Thank You!</h3>
+                    <p className="font-['Helvetica_Neue'] font-light mb-6 text-gray-700 dark:text-gray-300">
+                      We've received your information and will be in touch soon with next steps to join our community.
+                    </p>
+                    <button 
+                      onClick={() => setSubmitted(false)}
+                      className="inline-block px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-['Helvetica_Neue'] font-medium rounded-lg"
+                    >
+                      Sign Up Another
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <h3 className="font-['Helvetica_Neue'] font-medium text-2xl mb-4 text-black dark:text-white">Get Started</h3>
+                    <form onSubmit={handleSubmit}>
+                      <div className="mb-4">
+                        <label 
+                          htmlFor="name" 
+                          className="block font-['Helvetica_Neue'] font-medium mb-2 text-black dark:text-white"
+                        >
+                          Your Name
+                        </label>
+                        <input 
+                          type="text" 
+                          id="name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-black dark:focus:border-white focus:outline-none font-['Helvetica_Neue'] font-light bg-white dark:bg-gray-700 text-black dark:text-white"
+                          placeholder="Enter your name"
+                          required
+                        />
+                      </div>
+                      <div className="mb-4">
+                        <label 
+                          htmlFor="email" 
+                          className="block font-['Helvetica_Neue'] font-medium mb-2 text-black dark:text-white"
+                        >
+                          Email Address
+                        </label>
+                        <input 
+                          type="email" 
+                          id="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-black dark:focus:border-white focus:outline-none font-['Helvetica_Neue'] font-light bg-white dark:bg-gray-700 text-black dark:text-white"
+                          placeholder="Enter your email"
+                          required
+                        />
+                      </div>
+                      <div className="mb-6">
+                        <label className="flex items-start">
+                          <input 
+                            type="checkbox" 
+                            className="mt-1 mr-2"
+                            required
+                          />
+                          <span className="font-['Helvetica_Neue'] font-light text-sm text-gray-700 dark:text-gray-300">
+                            I agree to receive updates about the community and upcoming events. You can unsubscribe at any time.
+                          </span>
+                        </label>
+                      </div>
+                      <button 
+                        type="submit"
+                        className="w-full px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-['Helvetica_Neue'] font-medium rounded-lg hover:bg-black/90 dark:hover:bg-white/90 transition-colors"
+                      >
+                        Join The Community
+                      </button>
+                    </form>
+                  </>
+                )}
+              </div>
+            </AnimatedElement>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default JoinSection;
+````
 
 ## File: src/components/Navbar.tsx
-```typescript
+````typescript
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useDarkMode } from '../hooks/useDarkMode';
@@ -1620,10 +2036,29 @@ const MobileNavLink: React.FC<{ href: string; onClick: () => void; children: Rea
 };
 
 export default Navbar;
-```
+````
+
+## File: src/main.tsx
+````typescript
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.tsx';
+import './index.css';
+import { ConvexProvider, ConvexReactClient } from "convex/react";
+
+const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL!);
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <ConvexProvider client={convex}>
+      <App />
+    </ConvexProvider>
+  </StrictMode>
+);
+````
 
 ## File: .gitignore
-```
+````
 # Logs
 logs
 *.log
@@ -1652,10 +2087,10 @@ dist-ssr
 # Bun
 .bun
 bun.lockb
-```
+````
 
 ## File: CLAUDE.md
-```markdown
+````markdown
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
@@ -1680,10 +2115,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Accessibility**: Support reduced motion preferences, keyboard navigation, and proper ARIA attributes
 - **Dark Mode**: Support system preferences with manual toggle via useDarkMode hook
 - **Mobile**: Touch-friendly targets (min 44px), safe area insets, and optimized form elements
-```
+````
 
 ## File: vite.config.ts
-```typescript
+````typescript
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
@@ -1702,10 +2137,10 @@ export default defineConfig({
     },
   },    
 });
-```
+````
 
 ## File: src/components/Footer.tsx
-```typescript
+````typescript
 import React from 'react';
 import AnimatedElement from './AnimatedElement';
 import LogoWhite from '../assets/images/Molus_Logo_Horizontal_White.png';
@@ -1810,10 +2245,10 @@ const contactLinks = [
 ];
 
 export default Footer;
-```
+````
 
 ## File: package.json
-```json
+````json
 {
   "name": "vite-react-typescript-starter",
   "private": true,
@@ -1821,17 +2256,17 @@ export default Footer;
   "type": "module",
   "scripts": {
     "dev": "bun run --bun vite",
-
     "build": "bun run --bun vite build",
     "lint": "bun run --bun eslint .",
     "preview": "bun run --bun vite preview"
   },
   "dependencies": {
+    "convex": "^1.23.0",
     "framer-motion": "^11.0.8",
+    "intersection-observer": "^0.12.2",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "intersection-observer": "^0.12.2"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
@@ -1850,4 +2285,4 @@ export default Footer;
     "vite": "^5.4.2"
   }
 }
-```
+````

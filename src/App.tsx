@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -24,9 +24,10 @@ function App() {
     
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', (e) => {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href') || '');
+        const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href') || '';
+        const target = document.querySelector(href);
         if (target) {
           window.scrollTo({
             top: target.getBoundingClientRect().top + window.scrollY - 80,
