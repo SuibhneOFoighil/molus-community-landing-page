@@ -1,0 +1,503 @@
+This file is a merged representation of a subset of the codebase, containing specifically included files, combined into a single document by Repomix.
+The content has been processed where content has been compressed (code blocks are separated by ⋮---- delimiter).
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+4. Repository files, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Only files matching these patterns are included: src, .gitignore, bun.lock, CLAUDE.md, eslint.config.js, index.html, package.json, postcss.config.js, tailwind.config.js, tsconfig.app.json, tsconfig.json, tsconfig.node.json, vite.config.ts
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Content has been compressed - code blocks are separated by ⋮---- delimiter
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+<additional_info>
+
+</additional_info>
+
+</file_summary>
+
+<directory_structure>
+src/
+  components/
+    About.tsx
+    AnimatedElement.tsx
+    Community.tsx
+    FAQ.tsx
+    FloatingPaths.tsx
+    Footer.tsx
+    Hero.tsx
+    JoinSection.tsx
+    Navbar.tsx
+    Partners.tsx
+    ShipIt.tsx
+  hooks/
+    useDarkMode.tsx
+    useIntersectionObserver.tsx
+  App.tsx
+  index.css
+  main.tsx
+  vite-env.d.ts
+.gitignore
+CLAUDE.md
+eslint.config.js
+index.html
+package.json
+postcss.config.js
+tailwind.config.js
+tsconfig.app.json
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="src/components/About.tsx">
+import React from 'react';
+import { Lightbulb, Users, Rocket } from 'lucide-react';
+import AnimatedElement from './AnimatedElement';
+</file>
+
+<file path="src/components/AnimatedElement.tsx">
+import React, { useEffect, useState } from 'react';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+⋮----
+interface AnimatedElementProps {
+  children: React.ReactNode;
+  animation: 'fadeIn' | 'slideUp' | 'slideLeft' | 'slideRight' | 'scale' | 'parallax';
+  delay?: number;
+  duration?: number;
+  className?: string;
+  threshold?: number;
+  as?: keyof JSX.IntrinsicElements;
+}
+⋮----
+const handleChange = (e: MediaQueryListEvent) =>
+⋮----
+const getAnimationClass = () =>
+</file>
+
+<file path="src/components/Community.tsx">
+import React from 'react';
+import { MessageSquare, Calendar, Users } from 'lucide-react';
+import AnimatedElement from './AnimatedElement';
+</file>
+
+<file path="src/components/FAQ.tsx">
+import React, { useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import AnimatedElement from './AnimatedElement';
+⋮----
+interface FAQItemProps {
+  question: string;
+  answer: string;
+  index: number;
+}
+</file>
+
+<file path="src/components/FloatingPaths.tsx">
+import { motion } from "framer-motion";
+⋮----
+interface FloatingPathsProps {
+  position: number;
+  colors: string[];
+}
+</file>
+
+<file path="src/components/Hero.tsx">
+import React from 'react';
+import AnimatedElement from './AnimatedElement';
+import { FloatingPaths } from './FloatingPaths';
+⋮----
+const Hero: React.FC = () =>
+⋮----
+'#12C7E0', // Blue
+'#ED3E4B', // Red
+'#E8990C', // Orange
+'#0EE574', // Green
+'#DC64E2'  // Purple
+</file>
+
+<file path="src/components/JoinSection.tsx">
+import React, { useState } from 'react';
+import AnimatedElement from './AnimatedElement';
+⋮----
+const handleSubmit = (e: React.FormEvent) =>
+</file>
+
+<file path="src/components/Partners.tsx">
+import React from 'react';
+import AnimatedElement from './AnimatedElement';
+</file>
+
+<file path="src/components/ShipIt.tsx">
+import React from 'react';
+import { Clock, Zap, Presentation as PresentationChart, Database } from 'lucide-react';
+import AnimatedElement from './AnimatedElement';
+</file>
+
+<file path="src/hooks/useDarkMode.tsx">
+import { useState, useEffect } from 'react';
+⋮----
+export const useDarkMode = () =>
+⋮----
+const toggle = () =>
+⋮----
+// Listen for system theme changes
+⋮----
+const handleChange = (e: MediaQueryListEvent) =>
+</file>
+
+<file path="src/hooks/useIntersectionObserver.tsx">
+import { useEffect, useRef, useState } from 'react';
+⋮----
+interface UseIntersectionObserverProps {
+  threshold?: number;
+  root?: Element | null;
+  rootMargin?: string;
+  freezeOnceVisible?: boolean;
+}
+⋮----
+export const useIntersectionObserver = ({
+  threshold = 0.1,
+  root = null,
+  rootMargin = '0px',
+  freezeOnceVisible = true
+}: UseIntersectionObserverProps =
+</file>
+
+<file path="src/App.tsx">
+import React, { useEffect } from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import About from './components/About';
+import ShipIt from './components/ShipIt';
+import Community from './components/Community';
+import Partners from './components/Partners';
+import FAQ from './components/FAQ';
+import JoinSection from './components/JoinSection';
+import Footer from './components/Footer';
+⋮----
+// Initialize dark mode from localStorage or system preference
+⋮----
+// Update page title
+⋮----
+// Smooth scrolling for anchor links
+</file>
+
+<file path="src/index.css">
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+⋮----
+/* Base styles */
+:root {
+⋮----
+body {
+⋮----
+html {
+⋮----
+/* Performance optimizations */
+img {
+⋮----
+/* Touch-friendly focus states */
+a:focus,
+⋮----
+/* Scroll-triggered animations */
+⋮----
+.animate-in {
+⋮----
+.animate-in.fade-in {
+⋮----
+.animate-in.slide-up {
+⋮----
+.animate-in.slide-left {
+⋮----
+.animate-in.slide-right {
+⋮----
+.animate-in.scale-95 {
+⋮----
+/* Mobile optimizations */
+section {
+⋮----
+/* Touch-friendly interactions */
+button,
+⋮----
+/* Improved form inputs for mobile */
+input,
+⋮----
+/* Prevent zoom on input focus in iOS */
+⋮----
+input, select, textarea {
+⋮----
+/* Smooth scrolling with momentum */
+.smooth-scroll {
+⋮----
+/* Dark mode styles */
+⋮----
+input::placeholder,
+⋮----
+input:focus,
+⋮----
+.dark {
+</file>
+
+<file path="src/main.tsx">
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.tsx';
+</file>
+
+<file path="src/vite-env.d.ts">
+/// <reference types="vite/client" />
+</file>
+
+<file path="eslint.config.js">
+export default tseslint.config(
+</file>
+
+<file path="index.html">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Molus - Community for Solo Builders. Join creators and tinkerers on the path to financial freedom." />
+    <title>Molus | Community for Solo Builders</title>
+    <link href="https://fonts.cdnfonts.com/css/helvetica-neue-9" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.cdnfonts.com">
+    <link rel="dns-prefetch" href="https://fonts.cdnfonts.com">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+</file>
+
+<file path="postcss.config.js">
+
+</file>
+
+<file path="tailwind.config.js">
+/** @type {import('tailwindcss').Config} */
+</file>
+
+<file path="tsconfig.app.json">
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"]
+}
+</file>
+
+<file path="tsconfig.json">
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
+</file>
+
+<file path="tsconfig.node.json">
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["vite.config.ts"]
+}
+</file>
+
+<file path="src/components/Navbar.tsx">
+import React, { useState, useEffect } from 'react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
+import { useDarkMode } from '../hooks/useDarkMode';
+import LogoWhite from '../assets/images/molus-logo-horizontal-white-yellow.png';
+import LogoBlack from '../assets/images/molus-logo-horizontal-black-yellow.png';
+⋮----
+const handleScroll = () =>
+⋮----
+{/* Mobile menu */}
+⋮----
+<MobileNavLink href="#ship-it" onClick=
+</file>
+
+<file path=".gitignore">
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Bun
+.bun
+bun.lockb
+</file>
+
+<file path="CLAUDE.md">
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Build Commands
+- `bun run dev` - Start development server
+- `bun run build` - Build for production
+- `bun run lint` - Run ESLint
+- `bun run preview` - Preview production build
+
+## Code Style Guidelines
+- **React**: Function components with React.FC type and explicit interfaces for props
+- **TypeScript**: Strict mode enabled, noUnusedLocals, noUnusedParameters
+- **Imports**: Group by external libraries first, then local components/hooks
+- **Formatting**: 2-space indentation, semicolons, max line length ~80-100 chars
+- **CSS**: Tailwind CSS with custom animations and dark mode support
+- **Components**: Keep components in src/components/, one component per file
+- **Naming**: PascalCase for components, camelCase for functions/variables
+- **Animation**: Use AnimatedElement component with accessibility (respects prefers-reduced-motion)
+- **Errors**: Handle errors gracefully with fallbacks and user-friendly messages
+- **State Management**: Use React hooks for state (useState, useEffect, custom hooks)
+- **Accessibility**: Support reduced motion preferences, keyboard navigation, and proper ARIA attributes
+- **Dark Mode**: Support system preferences with manual toggle via useDarkMode hook
+- **Mobile**: Touch-friendly targets (min 44px), safe area insets, and optimized form elements
+</file>
+
+<file path="vite.config.ts">
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+</file>
+
+<file path="src/components/Footer.tsx">
+import React from 'react';
+import AnimatedElement from './AnimatedElement';
+import LogoWhite from '../assets/images/Molus_Logo_Horizontal_White.png';
+</file>
+
+<file path="package.json">
+{
+  "name": "vite-react-typescript-starter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --bun vite",
+
+    "build": "bun run --bun vite build",
+    "lint": "bun run --bun eslint .",
+    "preview": "bun run --bun vite preview"
+  },
+  "dependencies": {
+    "framer-motion": "^11.0.8",
+    "lucide-react": "^0.344.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "intersection-observer": "^0.12.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.18",
+    "eslint": "^9.9.1",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.11",
+    "globals": "^15.9.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.3.0",
+    "vite": "^5.4.2"
+  }
+}
+</file>
+
+</files>

@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import AnimatedElement from './AnimatedElement';
+import { useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api";
 
 const JoinSection: React.FC = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [submitted, setSubmitted] = useState(false);
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const addSignup = useMutation(api.signups.addSignup);
+  
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    await addSignup({ name, email });
     setSubmitted(true);
   };
   
