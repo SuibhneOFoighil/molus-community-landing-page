@@ -1,12 +1,9 @@
 import React from 'react';
 import AnimatedElement from './AnimatedElement';
-import { useDarkMode } from '../hooks/useDarkMode';
-import LogoWhite from '../assets/images/molus-logo-horizontal-white-yellow.png';
-import LogoBlack from '../assets/images/molus-logo-horizontal-black-yellow.png';
+import LogoWhite from '../assets/images/Molus_Logo_Horizontal_White.png';
 
 const Footer: React.FC = () => {
-  const { isDark } = useDarkMode();
-  const logoSrc = isDark ? LogoWhite : LogoBlack;
+  const logoSrc = LogoWhite;
   return (
     <footer className="bg-black text-white dark:bg-gray-900 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

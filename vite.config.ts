@@ -14,11 +14,5 @@ export default defineConfig({
         },
       },
     },
-  },
-  // Disable caching in development to avoid stale assets
-  server: {
-    headers: {
-      'Cache-Control': 'no-store, no-cache',
-    },
-  },
+  },    
 });

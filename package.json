@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun run --bun vite",
+
     "build": "bun run --bun vite build",
     "lint": "bun run --bun eslint .",
     "preview": "bun run --bun vite preview"
