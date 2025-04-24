@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+:root {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #000000;
+    color: #ffffff;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', 'Helvetica', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Performance optimizations */
+img {
+  content-visibility: auto;
+}
+
+/* Touch-friendly focus states */
+a:focus, 
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(226, 210, 16, 0.5);
+}
+
+/* Scroll-triggered animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-left {
+  from { 
+    opacity: 0;
+    transform: translateX(-2rem);
+  }
+  to { 
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-right {
+  from { 
+    opacity: 0;
+    transform: translateX(2rem);
+  }
+  to { 
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from { 
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-in {
+  animation-duration: var(--duration, 0.6s);
+  animation-delay: var(--delay, 0s);
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-in.fade-in {
+  animation-name: fade-in;
+}
+
+.animate-in.slide-up {
+  animation-name: slide-up;
+}
+
+.animate-in.slide-left {
+  animation-name: slide-left;
+}
+
+.animate-in.slide-right {
+  animation-name: slide-right;
+}
+
+.animate-in.scale-95 {
+  animation-name: scale-in;
+}
+
+/* Mobile optimizations */
+section {
+  position: relative;
+  overflow: hidden;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Touch-friendly interactions */
+button, 
+a {
+  transition: all 0.2s ease-in-out;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 12px;
+}
+
+/* Improved form inputs for mobile */
+input,
+select,
+textarea {
+  font-size: 16px !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Prevent zoom on input focus in iOS */
+@supports (-webkit-touch-callout: none) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Smooth scrolling with momentum */
+.smooth-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  input,
+  select,
+  textarea {
+    background-color: #000000;
+    color: #ffffff;
+    border-color: #333333;
+  }
+
+  input::placeholder,
+  select::placeholder,
+  textarea::placeholder {
+    color: #666666;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: #F2E220;
+  }
+}
+
+.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
