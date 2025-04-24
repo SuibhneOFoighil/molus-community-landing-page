@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
             <img
               src={logoSrc}
               alt="Molus Logo"
-              className="h-8"
+              className="h-12 md:h-16"
             />
           </div>
           

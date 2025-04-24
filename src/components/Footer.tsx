@@ -1,22 +1,21 @@
 import React from 'react';
 import AnimatedElement from './AnimatedElement';
 import { useDarkMode } from '../hooks/useDarkMode';
+import LogoWhite from '../assets/images/molus-logo-horizontal-white-yellow.png';
+import LogoBlack from '../assets/images/molus-logo-horizontal-black-yellow.png';
 
 const Footer: React.FC = () => {
   const { isDark } = useDarkMode();
+  const logoSrc = isDark ? LogoWhite : LogoBlack;
   return (
     <footer className="bg-black text-white dark:bg-gray-900 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <AnimatedElement animation="slideUp" delay={0.2} className="md:col-span-1">
             <img
-              src={encodeURI(
-                isDark
-                  ? '/images/Molus_Logo_Horizontal_White & Yellow.png'
-                  : '/images/Molus_Logo_Horizontal_Black & Yellow.png'
-              )}
+              src={logoSrc}
               alt="Molus Logo"
-              className="h-8 mb-4"
+              className="h-12 md:h-16 mb-4"
             />
             <p className="font-['Helvetica_Neue'] font-light text-gray-400 mb-4">
               Supporting solo builders, creators, and tinkerers on their founder journey.
